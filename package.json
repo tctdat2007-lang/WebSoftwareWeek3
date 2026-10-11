@@ -1,19 +1,16 @@
 {
-  "name": "javascript-template",
+  "name": "web-software-week3",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Week 3 Express assignments",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon app.js",
+    "start": "node app.js"
   },
-  "private": true,
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.3.0"
+  },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
-    "eslint": "^10.11.0",
-    "globals": "^17.12.0"
+    "nodemon": "^3.1.14"
   }
 }
