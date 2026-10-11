@@ -1,0 +1,25 @@
+POST http://localhost:3000/api/v1/cats
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="cat_name"
+
+Misu
+--WebAppBoundary
+Content-Disposition: form-data; name="weight"
+
+6
+--WebAppBoundary
+Content-Disposition: form-data; name="owner"
+
+3602
+--WebAppBoundary
+Content-Disposition: form-data; name="birthdate"
+
+2023-10-08
+--WebAppBoundary
+Content-Disposition: form-data; name="cat"; filename="test-cat.jpg"
+Content-Type: image/jpeg
+
+< ./test-cat.jpg
+--WebAppBoundary--
