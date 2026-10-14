@@ -23,3 +23,164 @@ Content-Type: image/jpeg
 
 < ./test-cat.jpg
 --WebAppBoundary--
+###
+
+POST http://localhost:3000/api/v1/users
+Content-Type: application/json
+
+{
+  "name": "Test User",
+  "username": "a",
+  "email": "hello",
+  "role": "user",
+  "password": "123"
+}
+###
+
+POST http://localhost:3000/api/v1/users
+Content-Type: application/json
+
+{
+  "name": "Test User",
+  "username": "testuser",
+  "email": "testuser@gmail.com",
+  "role": "user",
+  "password": "password123"
+}
+
+###
+
+POST http://localhost:3000/api/v1/cats
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="cat_name"
+
+A
+--WebAppBoundary
+Content-Disposition: form-data; name="weight"
+
+hello
+--WebAppBoundary
+Content-Disposition: form-data; name="owner"
+
+abc
+--WebAppBoundary
+Content-Disposition: form-data; name="birthdate"
+
+hello
+--WebAppBoundary
+Content-Disposition: form-data; name="cat"; filename="test-cat.jpg"
+Content-Type: image/jpeg
+
+< ./test-cat.jpg
+--WebAppBoundary--
+
+###
+
+POST http://localhost:3000/api/v1/cats
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="cat_name"
+
+Milo
+--WebAppBoundary
+Content-Disposition: form-data; name="weight"
+
+5
+--WebAppBoundary
+Content-Disposition: form-data; name="owner"
+
+3602
+--WebAppBoundary
+Content-Disposition: form-data; name="birthdate"
+
+2023-10-08
+--WebAppBoundary
+Content-Disposition: form-data; name="cat"; filename="test-cat.jpg"
+Content-Type: image/jpeg
+
+< ./test-cat.jpg
+--WebAppBoundary--
+
+###
+
+POST http://localhost:3000/api/v1/cats
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="cat_name"
+
+Milo
+--WebAppBoundary
+Content-Disposition: form-data; name="weight"
+
+5
+--WebAppBoundary
+Content-Disposition: form-data; name="owner"
+
+3602
+--WebAppBoundary
+Content-Disposition: form-data; name="birthdate"
+
+2023-10-08
+--WebAppBoundary--
+
+###
+
+POST http://localhost:3000/api/v1/cats
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="cat_name"
+
+Milo
+--WebAppBoundary
+Content-Disposition: form-data; name="weight"
+
+5
+--WebAppBoundary
+Content-Disposition: form-data; name="owner"
+
+3602
+--WebAppBoundary
+Content-Disposition: form-data; name="birthdate"
+
+2023-10-08
+--WebAppBoundary
+Content-Disposition: form-data; name="cat"; filename="test.txt"
+Content-Type: text/plain
+
+< ./text.txt
+--WebAppBoundary--
+
+###
+
+###
+
+POST http://localhost:3000/api/v1/cats
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="cat_name"
+
+Milo
+--WebAppBoundary
+Content-Disposition: form-data; name="weight"
+
+5
+--WebAppBoundary
+Content-Disposition: form-data; name="owner"
+
+3602
+--WebAppBoundary
+Content-Disposition: form-data; name="birthdate"
+
+2023-10-08
+--WebAppBoundary
+Content-Disposition: form-data; name="cat"; filename="big-test.jpg"
+Content-Type: image/jpeg
+
+< ./big-test.jpg
+--WebAppBoundary--

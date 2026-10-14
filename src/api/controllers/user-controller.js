@@ -8,28 +8,35 @@ const getUser = (req, res) => {
   res.json(listAllUsers());
 };
 
-const getUserById = (req, res) => {
+const getUserById = (req, res, next) => {
   const user = findUserById(req.params.id);
 
-  if (user) {
-    res.json(user);
-  } else {
-    res.sendStatus(404);
+  if (!user) {
+    const error = new Error('User not found');
+    error.status = 404;
+
+    next(error);
+    return;
   }
+
+  res.json(user);
 };
 
-const postUser = (req, res) => {
+const postUser = (req, res, next) => {
   const result = addUser(req.body);
 
-  if (result.user_id) {
-    res.status(201);
-    res.json({
-      message: 'New user added.',
-      result,
-    });
-  } else {
-    res.sendStatus(400);
+  if (!result.user_id) {
+    const error = new Error('Could not add user');
+    error.status = 400;
+
+    next(error);
+    return;
   }
+
+  res.status(201).json({
+    message: 'New user added.',
+    result,
+  });
 };
 
 const putUser = (req, res) => {
