@@ -79,11 +79,20 @@ const addCat = async (cat) => {
   };
 };
 
-const modifyCat = async (cat, id) => {
-  const sql = promisePool.format(
-    'UPDATE wsk_cats SET ? WHERE cat_id = ?',
-    [cat, id]
-  );
+const modifyCat = async (cat, id, user) => {
+  let sql;
+
+  if (user.role === 'admin') {
+    sql = promisePool.format(
+      'UPDATE wsk_cats SET ? WHERE cat_id = ?',
+      [cat, id]
+    );
+  } else {
+    sql = promisePool.format(
+      'UPDATE wsk_cats SET ? WHERE cat_id = ? AND owner = ?',
+      [cat, id, user.user_id]
+    );
+  }
 
   const [rows] = await promisePool.execute(sql);
 
@@ -96,11 +105,20 @@ const modifyCat = async (cat, id) => {
   };
 };
 
-const removeCat = async (id) => {
-  const [rows] = await promisePool.execute(
-    'DELETE FROM wsk_cats WHERE cat_id = ?',
-    [id]
-  );
+const removeCat = async (id, user) => {
+  let rows;
+
+  if (user.role === 'admin') {
+    [rows] = await promisePool.execute(
+      'DELETE FROM wsk_cats WHERE cat_id = ?',
+      [id]
+    );
+  } else {
+    [rows] = await promisePool.execute(
+      'DELETE FROM wsk_cats WHERE cat_id = ? AND owner = ?',
+      [id, user.user_id]
+    );
+  }
 
   if (rows.affectedRows === 0) {
     return false;

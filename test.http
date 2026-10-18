@@ -87,3 +87,128 @@ DELETE http://localhost:3000/api/v1/users/38
 GET http://localhost:3000/api/v1/users/38
 ###
 GET http://localhost:3000/api/v1/cats/user/38
+
+###
+POST http://localhost:3000/api/v1/users
+Content-Type: application/json
+
+{
+  "name": "Auth Test User",
+  "username": "authtest",
+  "email": "authtest@test.com",
+  "password": "hello123",
+  "role": "user"
+}
+
+###
+POST http://localhost:3000/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "authtest",
+  "password": "hello123"
+}
+
+###
+POST http://localhost:3000/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "authtest",
+  "password": "hello123"
+}
+
+> {%
+  client.global.set("auth_token", response.body.token);
+%}
+
+###
+GET http://localhost:3000/api/v1/auth/me
+Authorization: Bearer {{auth_token}}
+
+###
+PUT http://localhost:3000/api/v1/cats/41
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "cat_name": "Not Allowed"
+}
+###
+GET http://localhost:3000/api/v1/cats/41
+
+###
+POST http://localhost:3000/api/v1/cats
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="cat_name"
+
+Auth Cat
+--WebAppBoundary
+Content-Disposition: form-data; name="weight"
+
+5
+--WebAppBoundary
+Content-Disposition: form-data; name="owner"
+
+39
+--WebAppBoundary
+Content-Disposition: form-data; name="birthdate"
+
+2020-01-01
+--WebAppBoundary
+Content-Disposition: form-data; name="cat"; filename="test-cat.jpg"
+Content-Type: image/jpeg
+
+< ./test-cat.jpg
+--WebAppBoundary--
+
+###
+PUT http://localhost:3000/api/v1/cats/44
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "cat_name": "Auth Cat Updated"
+}
+
+###
+GET http://localhost:3000/api/v1/cats/44
+
+###
+PUT http://localhost:3000/api/v1/users/37
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "name": "Not Allowed"
+}
+
+###
+GET http://localhost:3000/api/v1/users/37
+###
+PUT http://localhost:3000/api/v1/users/39
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "name": "Auth Test User Updated"
+}
+###
+GET http://localhost:3000/api/v1/users/39
+
+###
+DELETE http://localhost:3000/api/v1/users/37
+Authorization: Bearer {{auth_token}}
+###
+POST http://localhost:3000/api/v1/users
+Content-Type: application/json
+
+{
+  "name": "Admin Test",
+  "username": "admintest",
+  "email": "admintest@test.com",
+  "password": "admin123",
+  "role": "admin"
+}

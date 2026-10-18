@@ -2,6 +2,7 @@ import express from 'express';
 import multer from 'multer';
 
 import {createThumbnail} from '../../middlewares/upload.js';
+import {authenticateToken} from '../../middlewares/authentication.js';
 
 import {
   getCat,
@@ -28,7 +29,7 @@ catRouter
 catRouter
   .route('/:id')
   .get(getCatById)
-  .put(putCat)
-  .delete(deleteCat);
+  .put(authenticateToken, putCat)
+  .delete(authenticateToken, deleteCat);
 
 export default catRouter;
