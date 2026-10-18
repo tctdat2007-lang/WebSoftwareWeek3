@@ -23,3 +23,67 @@ Content-Type: image/jpeg
 
 < ./test-cat.jpg
 --WebAppBoundary--
+
+###
+GET http://localhost:3000/api/v1/cats
+###
+###
+GET http://localhost:3000/api/v1/cats/41
+###
+GET http://localhost:3000/api/v1/cats/user/37
+###
+GET http://localhost:3000/api/v1/users
+###
+POST http://localhost:3000/api/v1/users
+Content-Type: application/json
+
+{
+  "name": "Assignment Five",
+  "username": "assignment5user",
+  "email": "assignment5@test.com",
+  "password": "test1234",
+  "role": "user"
+}
+###
+PUT http://localhost:3000/api/v1/users/38
+Content-Type: application/json
+
+{
+  "name": "Assignment Five Updated"
+}
+
+###
+POST http://localhost:3000/api/v1/cats
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="cat_name"
+
+Transaction Cat
+--WebAppBoundary
+Content-Disposition: form-data; name="weight"
+
+5
+--WebAppBoundary
+Content-Disposition: form-data; name="owner"
+
+38
+--WebAppBoundary
+Content-Disposition: form-data; name="birthdate"
+
+2020-01-01
+--WebAppBoundary
+Content-Disposition: form-data; name="cat"; filename="test-cat.jpg"
+Content-Type: image/jpeg
+
+< ./test-cat.jpg
+--WebAppBoundary--
+
+###
+GET http://localhost:3000/api/v1/cats/user/38
+###
+DELETE http://localhost:3000/api/v1/users/38
+###
+GET http://localhost:3000/api/v1/users/38
+###
+GET http://localhost:3000/api/v1/cats/user/38
